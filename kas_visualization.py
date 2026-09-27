@@ -102,7 +102,7 @@ def build_multiplier_bars(rows):
     mult = [r["multiplier"] for r in rows]
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[f"{a:.1f}" for a in alphas], y=mult, marker_color=ORANGE))
-    fig.add_hline(y=1.0, line=dict(color=GREY, width=1.2, dash="dot"), annotation_text="1× (kein Kaskadeneffekt)", annotation_position="top left")
+    fig.add_hline(y=1.0, line=dict(color=GREY, width=1.2, dash="dot"), annotation_text="1× (kein Kaskadeneffekt)", annotation_position="top right", annotation=dict(bgcolor="white"))
     top = max(mult) * 1.2 if mult else 1.0
     fig.update_layout(height=340, margin=dict(l=10, r=10, t=30, b=10), showlegend=False, plot_bgcolor="white", title=dict(text="Vervielfachungsfaktor gegenüber dem einmaligen Ausfall", x=0.02,
                        font=dict(size=13)))
