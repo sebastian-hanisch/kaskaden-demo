@@ -86,7 +86,7 @@ PRESET_HELP = {
     "Kritische Toleranz messen (Barbell: exakt 0)": "Die kritische Toleranz des Barbell ist EXAKT 0.0 (Satz) - im Gegensatz dazu braucht das skalenfreie Netz α*=17.0 und das Betriebsnetz α*=2.8, "
                                                      "um denselben Hub-Ausfall folgenlos zu machen. Die kritische Toleranz unterscheidet die drei Vehikel deutlich klarer als der Schaden bei "
                                                      "einem einzelnen festen α.",
-    "Betriebsnetz robust gegen Kaskaden": "Kritische Toleranz α*=2.8 - eine Größenordnung kleiner als beim skalenfreien Netz (17.0). Schon bei α=3.0 (leicht erreichbarer Sicherheitsspielraum) "
+    "Betriebsnetz robust gegen Kaskaden": "Kritische Toleranz α*=2.8 - rund sechsmal kleiner als beim skalenfreien Netz (17.0). Schon bei α=3.0 (leicht erreichbarer Sicherheitsspielraum) "
                                            "gibt es GAR KEINEN Sekundärausfall mehr (G=0.01, nur der Anfangsausfall) - während derselbe α=3.0 auf dem skalenfreien Netz immer noch kaskadiert.",
     "Epidemieschwelle Betriebsnetz gegen Pastor-Satorras-Formel": "289 Knoten (Zufallsgraph-Option, näher an der Mean-Field-Annahme als das reine Raster): β_c=0.0636 (Formel) gegen gemessen "
                                                                    "0.0907 (Abstand 0.027, endliche Größe). Mit dem reinen Straßenraster ist der Abstand deutlich GRÖSSER (0.094 gegen 0.142) - "

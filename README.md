@@ -12,8 +12,8 @@ Neuntes Stück der **Graphen-und-Netzwerke-Reihe** der "Konzepte"-Reihe für die
  ├─ 3 Starke Zusammenhangskomponenten, topologische Sortierung                [gebaut: scc-demo]
  ├─ 5 Graphfärbung                                                            [gebaut: graph-coloring-demo]
  ├─ 6 Zentralität ─ 7 Strukturkennzahlen ─ 8 Robustheit ─ 9 Kaskaden/Ausbr.   [gebaut: centrality-demo, strukturkennzahlen-demo, robustheit-demo, kaskaden-demo ─ DIESES STÜCK]
- │                            └─ 10 Kritische Knoten härten                   [nicht gebaut]
- └─ 11 Bandbreite ─ 12 Bandbreite von G(n,k,b) und Cliquenüberdeckung         [nicht gebaut]
+ │                            └─ 10 Kritische Knoten härten                   [gebaut: haertung-demo]
+ └─ 11 Bandbreite ─ 12 Bandbreite von G(n,k,b) und Cliquenüberdeckung         [gebaut: bandbreite-demo, cliquenbandbreite-demo]
 ```
 
 Ergebnis in Kürze: Die **kritische Toleranz** (kleinstes α, ab dem ein Hub-Ausfall auf dem skalenfreien Netz KEINE Sekundärausfälle mehr auslöst) unterscheidet die drei Vehikel deutlich klarer als der Schaden bei einem festen α: **α\*=17.0 beim skalenfreien Netz** gegen nur **α\*=2.8 beim Betriebsnetz** und **α\*=0.0 exakt beim Barbell** (ein Satz: die Brücke ist nach der ersten Entfernung schon getrennt). Bei der Ausbreitung bestätigt sich die Pastor-Satorras-Kernaussage GEMESSEN: das skalenfreie Netz hat eine etwa **halb so große Epidemieschwelle** wie ein vergleichbar großes homogenes Netz (β_c=0.033 gegen 0.064) – messbar niedriger, aber (bei den hier gewählten, endlichen Größen) NICHT buchstäblich null, wie ein vereinfachtes Schlagwort suggerieren könnte. Eine ehrliche Design-Entscheidung: die Mean-Field-Formel β_c=μ·⟨k⟩/⟨k²⟩ trifft auf einen Zufallsgraph erkennbar besser zu als auf das raumstrukturierte Straßenraster – ein strukturelles, kein zufälliges Manko (s. unten).
@@ -32,7 +32,7 @@ Die heterogene Mean-Field-Näherung β_c=μ·⟨k⟩/⟨k²⟩ setzt implizit ei
 |---|---|
 | **H1** Die Kaskaden-Lastneuberechnung je Runde stimmt mit einer unabhängigen Brandes-/networkx-Neuberechnung überein. | ✅ Bestätigt auf >20 kleinen Instanzen (Betriebsnetz, Skalenfrei, Barbell), Runde für Runde. |
 | **H2** Ein Hub-Ausfall auf dem skalenfreien Netz löst eine Kaskade aus, die ein Vielfaches des einmaligen Schadens (Stück 8: 1 Knoten) kostet. | ✅ Bestätigt: bei Standard-Toleranz α=0.5 fallen 57 von 150 Knoten aus – das 57-fache. |
-| **H3** Die kritische Toleranz unterscheidet die drei Vehikel deutlicher als der Schaden bei einem festen α. | ✅ Bestätigt: α\*=17.0 (Skalenfrei) gegen 2.8 (Betriebsnetz) gegen 0.0 (Barbell) – eine Größenordnung Unterschied, wo der Schaden bei α=0.5 sich nicht annähernd so stark unterscheidet (G=0.38 gegen 0.39 – praktisch GLEICH groß, eine echte Überraschung, s. Befunde). |
+| **H3** Die kritische Toleranz unterscheidet die drei Vehikel deutlicher als der Schaden bei einem festen α. | ✅ Bestätigt: α\*=17.0 (Skalenfrei) gegen 2.8 (Betriebsnetz) gegen 0.0 (Barbell) – rund Faktor 6 zwischen Skalenfrei und Betriebsnetz, wo der Schaden bei α=0.5 sich nicht annähernd so stark unterscheidet (G=0.38 gegen 0.39 – praktisch GLEICH groß, eine echte Überraschung, s. Befunde). |
 | **H4** α→∞ stoppt die Kaskade beim Anfangsausfall (keine Sekundärausfälle), UNABHÄNGIG von der Instanz. | ⚠️ **Mit einer dokumentierten Einschränkung bestätigt:** empirisch auf allen drei Vehikeln und >55 zufälligen Stichproben (0 Ausreißer) – aber ein bekanntes theoretisches Merkmal der Motter-Lai-Formel (Kapazität = (1+α)·Anfangslast) bleibt: ein Knoten mit Anfangslast EXAKT 0 hat Kapazität 0 für JEDES α; trägt er später auch nur minimal Last, fällt er trotzdem aus. Auf den hier verwendeten Instanzen/Größen nicht beobachtet, aber kein Beweis, dass es nie vorkommt (s. Grenzen unten). |
 | **H5** Der Barbell zeigt den dramatischsten Kaskaden-Sonderfall: die Kaskade endet exakt nach Runde 1. | ✅ Bestätigt als Satz (nicht nur gemessen): nach Entfernung eines Brückenendes trägt in den beiden entstehenden vollständigen Teilgraphen kein Knoten mehr Last. |
 | **H6** SIR degeneriert bei β=1, μ=0 zu einer deterministischen BFS-Wellenfront. | ✅ Bestätigt EXAKT (kein Toleranzband nötig) gegen `bfs_distances` auf allen Testinstanzen. |
@@ -59,7 +59,7 @@ Presets (8), alle mit den Zahlen in ihren Hilfetexten (`tests/test_presets.py`):
 
 | Preset | Was es zeigt |
 |---|---|
-| Barbell-Kaskade (bricht sofort ab) | Bruckenende-Ausfall trennt sofort in K7+K8, Kaskade endet nach Runde 1 exakt |
+| Barbell-Kaskade (bricht sofort ab) | Brückenende-Ausfall trennt sofort in K7+K8, Kaskade endet nach Runde 1 exakt |
 | Barbell-Ausbreitung (muss die Brücke passieren) | p50=8 (eine Clique), p90=16 (beide) – nur 30 % überqueren die Brücke |
 | Skalenfrei-Kaskade (ein Hub-Ausfall reißt ein Vielfaches mit) | 57-facher Schaden bei α=0.5, kritische Toleranz α\*=17.0 |
 | Kritische Toleranz messen (Barbell: exakt 0) | α\*=0.0 exakt, im Kontrast zu 17.0 (Skalenfrei) und 2.8 (Betriebsnetz) |
@@ -112,7 +112,7 @@ python -m pytest tests/ -v
 
 ## Bewusst nicht umgesetzt
 
-Kritische Knoten härten (Stück 10 der Reihe) – ein eigenes Stück, das gezielte Mitigation/Verstärkung ausgewählter Knoten gegen genau diese beiden Dynamiken behandeln würde.
+Kritische Knoten härten (Stück 10 der Reihe, inzwischen als haertung-demo gebaut) – ein eigenes Stück, das gezielte Mitigation/Verstärkung ausgewählter Knoten gegen genau diese beiden Dynamiken behandelt.
 
 ## Lokal ausführen
 
@@ -129,3 +129,7 @@ venv\Scripts\streamlit run app.py
 - Brandes, U. (2001). *A faster algorithm for betweenness centrality.* Journal of Mathematical Sociology 25(2), 163–177 (Betweenness-Berechnung, wortgleich aus `robustheit-demo`/`centrality-demo`).
 
 Gebaut mit Streamlit, Plotly, NumPy und pandas.
+
+---
+
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Graphen und Netzwerke: BFS bis Cliquenbandbreite](https://sebastianhanisch.net/konzepte-graphen-netzwerke.html).
