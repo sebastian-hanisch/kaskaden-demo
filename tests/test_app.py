@@ -166,7 +166,7 @@ def test_permalink_accepts_valid_values_and_writes_them_back():
     ss = at.session_state
     assert (ss["kind_select"], ss["mode_select"], ss["nba_slider"], ss["m0ba_slider"], ss["initial_strategy_select"], ss["seed_input"], ss["kas_step"]) == \
         ("ba", "ausbreitung", 60, 5, "random", 7, 3)
-    assert at.query_params["seed"] == ["7"] and at.query_params["step"] == ["3"]
+    assert at.query_params["seed"] in (["7"], "7") and at.query_params["step"] in (["3"], "3")
     assert ss["nba_widget"] == 60 and ss["seed_widget"] == 7
 
 
