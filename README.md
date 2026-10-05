@@ -4,7 +4,7 @@
 
 Neuntes Stück der **Graphen-und-Netzwerke-Reihe** der "Konzepte"-Reihe für die Website "Sebastian Hanisch – Operations Research und Machine Learning", Kind von Stück 8 (Robustheit, [robustheit-demo](https://github.com/sebastian-hanisch/robustheit-demo)): dort war jeder Knotenausfall ein EINMALIGES, unabhängiges Ereignis (Zufall oder gezielt) – hier geht es um FOLGEEREIGNISSE, die aus einem einzigen Ausfall eine viel größere Katastrophe machen. Zwei Dynamiken: **Lastbasierte Kaskadenausfälle** (Motter & Lai 2002, Phys. Rev. E 66, 065102(R)): jeder Knoten trägt eine Anfangslast (seine Betweenness) und eine Kapazität = (1+α)·Anfangslast (Toleranz α); fällt ein Knoten aus, verteilen sich die kürzesten Wege neu – manche Knoten tragen jetzt mehr Last als ihre Kapazität und fallen ebenfalls aus, eine Kettenreaktion, die den einmaligen Schaden aus Stück 8 um ein Vielfaches übertreffen kann. **SIR-Ausbreitung** (Pastor-Satorras & Vespignani 2001, Phys. Rev. Lett. 86(14), 3200–3203): eine stochastische Infektion (S→I→R, diskrete Zeit) verbreitet sich über die Kanten – skalenfreie Netze haben eine deutlich niedrigere Epidemieschwelle als homogene Netze (hier an den drei Vehikeln aus Stück 7/8 GEMESSEN, nicht vorausgesetzt).
 
-**Einordnung in die Reihe:** die Reihe hat zwölf Stücke, dies ist das neunte (Details in `graphen-planung/PLAN.md` des Portfolio-Ordners):
+**Einordnung in die Reihe:** die Reihe hat dreizehn Stücke (zwölf im Baum, dazu die Fall-Demo interne-verlinkung-demo), dies ist das neunte (Details in `graphen-planung/PLAN.md` des Portfolio-Ordners):
 
 ```
 1 BFS und DFS (Wurzel)                                                        [gebaut: bfs-dfs-demo]

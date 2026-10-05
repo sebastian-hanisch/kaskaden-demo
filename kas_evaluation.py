@@ -50,7 +50,9 @@ def initial_node(adj, strategy, seed):
     n = len(adj)
     if strategy == "highest_load":
         node_between, _, _ = A.betweenness_brandes(adj)
-        return max(range(n), key=lambda v: (node_between[v], -v))
+        # Gleichstand nach kleinstem Index: mathematisch gleiche Betweenness-Werte (symmetrische Netze, z. B. das ungesperrte Raster) unterscheiden sich in Gleitkommazahlen um ~1e-13 - ohne
+        # Rundung entschiede dieses Rauschen statt des Index.
+        return max(range(n), key=lambda v: (round(node_between[v], 9), -v))
     if strategy == "random":
         import random
         rng = random.Random(int(seed) * 1_000_003 + 2029)
