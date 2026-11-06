@@ -52,7 +52,7 @@ STEPS = {1: "1 · Kaskade/Ausbreitung in Aktion", 2: "2 · Kaskadengröße über
 #   1 Knoten). Kritische Toleranz (kein Sekundaerausfall mehr) alpha*=17.0 - ein SEHR grosser Sicherheitsspielraum waere noetig, um diesen Hub-Ausfall folgenlos zu machen.
 # KASKADE, Betriebsnetz (n=100, m=144, Raster, 20% gesperrt, Hub=Knoten 34): kritische Toleranz alpha*=2.8 - eine Groessenordnung KLEINER als beim skalenfreien Netz. Schon bei alpha=3.0 (leicht
 #   erreichbarer Sicherheitsspielraum) gibt es GAR KEINEN Sekundaerausfall mehr (G=0.01, nur der Anfangsausfall selbst) - waehrend derselbe alpha=3.0 auf dem skalenfreien Netz IMMER NOCH kaskadiert
-#   (s. Bericht). Die kritische Toleranz, nicht der Vervielfachungsfaktor bei einem festen alpha, ist die Kennzahl, die die drei Vehikel am klarsten unterscheidet.
+#   (s. Bericht). Im Beispiel (Seed 35) unterscheidet die kritische Toleranz die drei Vehikel klarer als der Schaden bei einem festen alpha; über andere Seeds streut sie stark (Seeds 1-8: alpha* skalenfrei 20.0/3.8/10.4/7.4/3.2/9.4/nicht erreicht/16.2 gegen Betriebsnetz 3.4/6.8/3.4/1.6/2.0/3.4/2.4/2.2).
 # KASKADE, Barbell (n=16, k=8): kritische Toleranz alpha*=0.0 EXAKT (Satz, s. tests/test_cascade.py) - die Bruecke ist nach der ersten Entfernung schon getrennt, keinerlei Toleranz noetig.
 # AUSBREITUNG, Barbell (n=16, k=8, patient_zero=14, beta=0.2, mu=0.3, 100 Laeufe): mittlere Endgroesse 9.17, p10=1 (stirbt fast sofort aus), p50=8 (genau EINE Clique voll infiziert, Bruecke NICHT
 #   passiert), p90=16 (BEIDE Cliquen). Nur 30% der Laeufe ueberqueren die Bruecke ueberhaupt - ein sichtbarer Flaschenhals-Effekt.
@@ -84,8 +84,8 @@ PRESET_HELP = {
     "Skalenfrei-Kaskade (ein Hub-Ausfall reißt ein Vielfaches mit)": "150 Knoten: bei Standard-Toleranz α=0.5 fallen 57 von 150 Knoten aus (G=0.38) - das 57-FACHE des einmaligen Ausfalls aus "
                                                                       "Stück 8 (dort genau 1 Knoten). Kritische Toleranz α*=17.0 - ein sehr großer Sicherheitsspielraum wäre nötig.",
     "Kritische Toleranz messen (Barbell: exakt 0)": "Die kritische Toleranz des Barbell ist EXAKT 0.0 (Satz) - im Gegensatz dazu braucht das skalenfreie Netz α*=17.0 und das Betriebsnetz α*=2.8, "
-                                                     "um denselben Hub-Ausfall folgenlos zu machen. Die kritische Toleranz unterscheidet die drei Vehikel deutlich klarer als der Schaden bei "
-                                                     "einem einzelnen festen α.",
+                                                     "um denselben Hub-Ausfall folgenlos zu machen. Im Beispiel (Seed 35) unterscheidet die kritische Toleranz die drei Vehikel deutlich klarer als der Schaden bei "
+                                                     "einem einzelnen festen α; über andere Seeds streut sie stark.",
     "Betriebsnetz robust gegen Kaskaden": "Kritische Toleranz α*=2.8 - rund sechsmal kleiner als beim skalenfreien Netz (17.0). Schon bei α=3.0 (leicht erreichbarer Sicherheitsspielraum) "
                                            "gibt es GAR KEINEN Sekundärausfall mehr (G=0.01, nur der Anfangsausfall) - während derselbe α=3.0 auf dem skalenfreien Netz immer noch kaskadiert.",
     "Epidemieschwelle Betriebsnetz gegen Pastor-Satorras-Formel": "289 Knoten (Zufallsgraph-Option, näher an der Mean-Field-Annahme als das reine Raster): β_c=0.0636 (Formel) gegen gemessen "

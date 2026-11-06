@@ -60,6 +60,19 @@ Schaden aus Stück 8 um ein Vielfaches übertreffen kann. **SIR-Ausbreitung** (P
 Zeit) verbreitet sich über die Kanten - skalenfreie Netze haben eine deutlich niedrigere Epidemieschwelle als homogene Netze (hier an den drei Vehikeln GEMESSEN, nicht vorausgesetzt).
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/kaskaden-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Die Demo spielt zwei Arten von Folgeereignissen in einem Netz aus Orten und Verbindungen durch. Bei der ersten trägt jeder Ort eine gewohnte Last und hat darüber einen Puffer. Fällt ein Ort aus, suchen sich die Wege neue Routen. Andere Orte werden dann zu stark belastet und fallen ebenfalls aus. So kann aus einem einzigen Ausfall eine Kette werden.
+
+Die zweite Art ist eine Ansteckung, die sich über Kontakte ausbreitet. Gemessen wird, wie viel Puffer nötig ist, damit eine Kette gar nicht erst entsteht, und ab welcher Ansteckungswahrscheinlichkeit sich eine Ansteckung ausbreiten kann. Verglichen werden drei erzeugte Netze, keine echten Daten.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/kaskaden-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 st.caption(
     "Kind der Robustheits-Demo (achtes Stück der Graphen-und-Netzwerke-Reihe). Der Barbell eignet sich für BEIDE Dynamiken als von-Hand-Beispiel: fällt der Brückenknoten aus, ist der Graph "
     "sofort in zwei Teile getrennt - für die Kaskade heißt das: keine Lastumverteilung über die (nicht mehr existierende) Brücke mehr möglich, die Kaskade endet augenblicklich; für SIR heißt das: "
@@ -290,6 +303,26 @@ st.markdown(
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/kaskaden-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben ist ein Netz mit $n$ Knoten. Entweder fällt ein Knoten aus und umgeleitete Last kann Folgeausfälle auslösen, oder eine Infektion läuft von einem Startknoten über die Kanten. Gesucht ist die kleinste Toleranz $\alpha^*$ ohne Folgeausfälle und die Ansteckungswahrscheinlichkeit $\beta_c$, ab der sich die Infektion ausbreiten kann.
+
+| Symbol | Bedeutung |
+|---|---|
+| $n$ | Zahl der Knoten |
+| $L_i(t)$ | Last von Knoten $i$ in Runde $t$ (seine Betweenness im Restnetz) |
+| $C_i$ | Kapazität von Knoten $i$ |
+| $\alpha$ | Toleranz: Anteil der Anfangslast, den ein Knoten zusätzlich verträgt |
+| $\alpha^*$ | kritische Toleranz: kleinste Toleranz ohne Sekundärausfälle |
+| $\beta$, $\mu$ | Ansteckungs- bzw. Genesungswahrscheinlichkeit je Zeitschritt |
+| $\langle k \rangle$, $\langle k^2 \rangle$ | mittlerer Grad und mittleres Quadrat des Grades |
+| $\beta_c$ | vorhergesagte Epidemieschwelle |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/kaskaden-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Lastbasierte Kaskade (Motter & Lai 2002).** Anfangslast $L_i(0)$ = Betweenness-Zentralität von Knoten $i$ auf dem vollen Graphen. Kapazität $C_i = (1+\alpha)\,L_i(0)$. Nach jedem Ausfall wird

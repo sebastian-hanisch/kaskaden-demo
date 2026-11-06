@@ -36,8 +36,8 @@ def test_readme_city_cascade_39_and_critical_tolerance_2_8_and_stops_at_alpha_3(
 
 
 def test_readme_cascade_damage_at_alpha_0_5_is_nearly_equal_for_city_and_ba_despite_very_different_critical_tolerance():
-    """README-Überraschung: bei einem FESTEN alpha=0.5 ist der Schaden auf Betriebsnetz (39%) und Skalenfrei (38%) fast identisch, obwohl die kritische Toleranz sich um eine Groessenordnung
-    unterscheidet (2.8 gegen 17.0) - die kritische Toleranz, nicht der Schaden bei einem festen alpha, ist die Kennzahl, die unterscheidet."""
+    """README-Befund NUR fuer das Instanzpaar Seed 35: bei einem FESTEN alpha=0.5 ist der Schaden auf Betriebsnetz (39%) und Skalenfrei (38%) fast identisch, obwohl sich die kritische Toleranz hier
+    deutlich unterscheidet (2.8 gegen 17.0). Kein allgemeiner Befund: ueber andere Seeds streut beides stark (Gesamtausfall bei alpha=0.5 im Mittel ueber neun Seeds 41.3% gegen 29.9%)."""
     inst_city = S.generate(side=10, blocked=0.2, nettype="grid", seed=35)
     adj_city = A.adjacency(inst_city.n, inst_city.edges)
     _, G_city = A.motter_lai_cascade(adj_city, 0.5, [_hub(adj_city)])
